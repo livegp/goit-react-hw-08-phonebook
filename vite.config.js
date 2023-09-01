@@ -38,5 +38,5 @@ export default defineConfig({
     reactClickToComponent()
     // Icons()
   ],
-  base: '/goit-react-hw-07-phonebook/' // має відповідати шляху в index.jsx
+  base: '/goit-react-hw-08-phonebook/' // має відповідати шляху в index.jsx
 });
