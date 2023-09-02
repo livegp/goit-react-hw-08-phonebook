@@ -1,4 +1,4 @@
-import{s as e,j as t}from"./index-f616419f.js";const o=e.section`
+import{s as e,j as t}from"./index-9b7857b2.js";const o=e.section`
   display: grid;
   gap: 16px;
   color: #3b5998;
