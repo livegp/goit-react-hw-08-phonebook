@@ -15,7 +15,6 @@
     "source.fixAll": true
   },
   "files.autoSave": "onFocusChange",
-  "stylelint.validate": ["css", "javascript", "typescript"],
   "terminal.integrated.fontFamily": "FiraCode Nerd Font",
   "editor.fontFamily": "Fira Code, Consolas, 'Courier New', monospace",
   "editor.fontLigatures": true,
