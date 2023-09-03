@@ -12,8 +12,7 @@ function Footer() {
           <a
             target="_blank"
             rel="noreferrer"
-            href="https://www.linkedin.com/in/oleksandr-pishta"
-          >
+            href="https://www.linkedin.com/in/oleksandr-pishta">
             Oleksandr Pishta
           </a>
         </p>

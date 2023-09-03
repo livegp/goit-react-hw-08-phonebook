@@ -75,8 +75,7 @@ function ContactList() {
               <button
                 type="button"
                 disabled={isDeleteLoading}
-                onClick={() => handleDelete(id)}
-              >
+                onClick={() => handleDelete(id)}>
                 <TiDeleteOutline size={20} />
               </button>
             </td>
