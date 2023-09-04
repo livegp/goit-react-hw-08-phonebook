@@ -9,7 +9,7 @@ import webfontDownload from 'vite-plugin-webfont-dl';
 import imagePresets, { widthPreset } from 'vite-plugin-image-presets';
 import VitePluginSvgSpritemap from '@spiriit/vite-plugin-svg-spritemap';
 import zipPack from 'vite-plugin-zip-pack';
-import FullReload from 'vite-plugin-full-reload';
+// import FullReload from 'vite-plugin-full-reload';
 // import autoAlias from 'vite-plugin-auto-alias';
 // import Icons from 'unplugin-icons/vite';
 
@@ -36,7 +36,7 @@ export default defineConfig({
       }),
     }),
     injectHTML(),
-    FullReload(['./src/**/**.html']),
+    // FullReload(['./src/**/**.html']),
     // autoAlias({ mode: 'sync' }),
     // Icons()
   ],

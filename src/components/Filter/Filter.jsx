@@ -15,7 +15,7 @@ function Filter() {
     <Form>
       <label htmlFor="filter">Find contacts by name</label>
       <input
-        type="text"
+        type="search"
         name="filter"
         value={filter}
         onChange={handleFilterChange}
