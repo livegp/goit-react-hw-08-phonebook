@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Section = styled.section`
@@ -13,3 +14,11 @@ const Section = styled.section`
 `;
 
 export default Section;
+
+export const LinkToHome = styled(Link)`
+  color: #3b5998;
+
+  &:hover {
+    color: #8b9dc3;
+  }
+`;

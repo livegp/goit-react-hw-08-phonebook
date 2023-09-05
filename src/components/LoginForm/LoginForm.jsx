@@ -2,7 +2,8 @@ import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { Btn, Form, Item, List } from './LoginForm.styled';
+import { Btn, Form, Item, LinkToRegister, List } from './LoginForm.styled';
+import { REGISTER_ROUTE } from '../../constants/routes';
 import {
   useAddContactMutation,
   useGetContactsQuery,
@@ -73,7 +74,7 @@ function LoginForm() {
             name="email"
             value={email}
             onChange={handleChange}
-            title="email may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            title="The e-mail address must contain the following characters: letters, numbers, period, symbols before the @ symbol"
             required
           />
         </List>
@@ -85,7 +86,7 @@ function LoginForm() {
             name="password"
             value={password}
             onChange={handleChange}
-            title="password number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            title="Password must be at least 8 characters long and include a combination of letters, numbers, and special characters"
             required
           />
         </List>
@@ -93,6 +94,7 @@ function LoginForm() {
       <Btn type="submit" disabled={isAddLoading}>
         Login
       </Btn>
+      <LinkToRegister to={REGISTER_ROUTE}>Create an account</LinkToRegister>
     </Form>
   );
 }

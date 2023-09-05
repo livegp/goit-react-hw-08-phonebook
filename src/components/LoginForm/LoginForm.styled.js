@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Form = styled.form`
@@ -35,5 +36,13 @@ export const Btn = styled.button`
 
   &:hover {
     background-color: #fff;
+  }
+`;
+
+export const LinkToRegister = styled(Link)`
+  color: #3b5998;
+
+  &:hover {
+    color: #8b9dc3;
   }
 `;

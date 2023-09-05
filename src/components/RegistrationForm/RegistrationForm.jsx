@@ -2,14 +2,15 @@ import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { Btn, Form, Item, List } from './RegistrationForm.styled';
+import { Btn, Form, Item, LinkToLogin, List } from './RegistrationForm.styled';
+import { LOGIN_ROUTE } from '../../constants/routes';
 import {
   useAddContactMutation,
   useGetContactsQuery,
 } from '../../redux/contactsSlice';
 
 function RegistrationForm() {
-  const [usernName, setUserName] = useState('');
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -23,8 +24,7 @@ function RegistrationForm() {
   const handleChange = ({ target: { name, value } }) => {
     if (name === 'name') {
       setUserName(value);
-    }
-    if (name === 'email') {
+    } else if (name === 'email') {
       setEmail(value);
     } else if (name === 'password') {
       setPassword(value);
@@ -52,7 +52,7 @@ function RegistrationForm() {
       return;
     }
 
-    const newData = { email, password };
+    const newData = { userName, email, password };
 
     try {
       await addContact(newData);
@@ -76,7 +76,7 @@ function RegistrationForm() {
             type="text"
             id={userNameId}
             name="name"
-            value={usernName}
+            value={userName}
             onChange={handleChange}
             pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -91,7 +91,7 @@ function RegistrationForm() {
             name="email"
             value={email}
             onChange={handleChange}
-            title="Email may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            title="The e-mail address must contain the following characters: letters, numbers, period, symbols before the @ symbol"
             required
           />
         </List>
@@ -103,7 +103,7 @@ function RegistrationForm() {
             name="password"
             value={password}
             onChange={handleChange}
-            title="Password must be digits and can contain spaces, dashes, parentheses and can start with +"
+            title="Password must be at least 8 characters long and include a combination of letters, numbers, and special characters"
             required
           />
         </List>
@@ -111,6 +111,7 @@ function RegistrationForm() {
       <Btn type="submit" disabled={isAddLoading}>
         Registration
       </Btn>
+      <LinkToLogin to={LOGIN_ROUTE}>Already have an account</LinkToLogin>
     </Form>
   );
 }
