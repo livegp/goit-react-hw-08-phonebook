@@ -4,17 +4,14 @@ export const Form = styled.form`
   color: #3b5998;
 `;
 
-export const Item = styled.ul`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const List = styled.li`
-  display: flex;
-  gap: 5px;
-  flex-direction: column;
   text-align: left;
   margin: 0 0 10px;
+
+  label {
+    display: grid;
+    gap: 5px;
+  }
 
   input {
     padding: 10px;

@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
 
-import { Btn, Form, Item, LinkToLogin, List } from './RegisterForm.styled';
+import { Btn, Form, LinkToLogin, List } from './RegisterForm.styled';
 import { LOGIN_ROUTE } from '../../constants/routes';
-import { useRegisterUserMutation } from '../../redux/auth';
+import { useRegisterUserMutation } from '../../redux/authSlice';
 
 function RegisterForm() {
   const [registerUserMutation] = useRegisterUserMutation();
@@ -30,14 +30,13 @@ function RegisterForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Item>
+      <ul>
         <List>
           <label>
             Name
             <input
               type="text"
-              name="name"
-              value={userName} //eslint-disable-line
+              name="userName"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               placeholder="Enter your name..."
               required
@@ -49,8 +48,7 @@ function RegisterForm() {
             Email
             <input
               type="email"
-              name="email"
-              value={userEmail} //eslint-disable-line
+              name="userEmail"
               title="The e-mail address must contain the following characters: letters, numbers, period, symbols before the @ symbol"
               placeholder="Enter your email..."
               required
@@ -62,15 +60,15 @@ function RegisterForm() {
             Password
             <input
               type="password"
-              name="password"
-              value={userPassword} //eslint-disable-line
+              name="userPassword"
               title="Password must be at least 8 characters long and include a combination of letters, numbers, and special characters"
               placeholder="Enter your password..."
+              minLength={8}
               required
             />
           </label>
         </List>
-      </Item>
+      </ul>
       <Btn type="submit">Registration</Btn>
       <LinkToLogin to={LOGIN_ROUTE}>Already have an account</LinkToLogin>
     </Form>

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const api = createApi({
+const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com/',
   }),
@@ -33,6 +33,6 @@ export const {
   useLoginUserMutation,
   useLogOutUserMutation,
   useRefreshUserQuery,
-} = api;
+} = authApi;
 
-export default api;
+export default authApi;

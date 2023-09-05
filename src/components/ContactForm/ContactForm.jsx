@@ -1,8 +1,7 @@
-import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { Btn, Form, Item, List } from './ContactForm.styled';
+import { Btn, Form, List } from './ContactForm.styled';
 import {
   useAddContactMutation,
   useGetContactsQuery,
@@ -14,9 +13,6 @@ function ContactForm() {
 
   const [addContact, { isLoading: isAddLoading }] = useAddContactMutation();
   const { data: contacts } = useGetContactsQuery();
-
-  const nameId = nanoid();
-  const phoneId = nanoid();
 
   const handleChange = ({ target: { name: inputName, value } }) => {
     if (inputName === 'name') {
@@ -62,34 +58,36 @@ function ContactForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Item>
+      <ul>
         <List>
-          <label htmlFor={nameId}>Name</label>
-          <input
-            type="text"
-            id={nameId}
-            name="name"
-            value={name}
-            onChange={handleChange}
-            pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
+          <label>
+            Name
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={handleChange}
+              pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              required
+            />
+          </label>
         </List>
         <List>
-          <label htmlFor={phoneId}>Phone</label>
-          <input
-            type="tel"
-            id={phoneId}
-            name="phone"
-            value={phone}
-            onChange={handleChange}
-            pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
+          <label>
+            Phone
+            <input
+              type="tel"
+              name="phone"
+              value={phone}
+              onChange={handleChange}
+              pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              required
+            />
+          </label>
         </List>
-      </Item>
+      </ul>
       <Btn type="submit" disabled={isAddLoading}>
         {isAddLoading ? 'Adding...' : 'Add contact'}
       </Btn>
