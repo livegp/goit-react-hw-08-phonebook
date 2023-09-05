@@ -1,4 +1,4 @@
-import{s as n,j as e,L as r,a,H as s,r as d,O as c}from"./index-bdfd1d7d.js";import{G as t}from"./iconBase-20eb0707.js";import l from"./Loader-9b79288c.js";const p=n.footer`
+import{s as n,j as e,L as r,a,H as s,r as d,O as c}from"./index-9ff7e803.js";import{G as t}from"./iconBase-f9bd2bae.js";import l from"./Loader-d48c5161.js";const p=n.footer`
   color: #dfe3ee;
   background-color: #3b5998;
 
