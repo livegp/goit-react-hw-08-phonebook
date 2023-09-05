@@ -1,100 +1,64 @@
-import { nanoid } from 'nanoid';
-import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { Btn, Form, Item, LinkToRegister, List } from './LoginForm.styled';
-import { REGISTER_ROUTE } from '../../constants/routes';
-import {
-  useAddContactMutation,
-  useGetContactsQuery,
-} from '../../redux/contactsSlice';
+import { Btn, Form, Item, List } from './LoginForm.styled';
+import { LOGIN_ROUTE } from '../../constants/routes';
+import { useLoginUserMutation } from '../../redux/auth';
+import { LinkToLogin } from '../RegisterForm/RegisterForm.styled';
 
 function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [loginUserMutation] = useLoginUserMutation();
 
-  const [addContact, { isLoading: isAddLoading }] = useAddContactMutation();
-  const { data: contacts } = useGetContactsQuery();
+  const handleSubmit = async event => {
+    event.preventDefault();
 
-  const emailId = nanoid();
-  const passwordId = nanoid();
+    const email = event.currentTarget.elements.userEmail.value;
+    const password = event.currentTarget.elements.userPassword.value;
 
-  const handleChange = ({ target: { name, value } }) => {
-    if (name === 'email') {
-      setEmail(value);
-    } else if (name === 'password') {
-      setPassword(value);
-    }
-  };
-
-  const handleSubmit = async evt => {
-    evt.preventDefault();
-
-    const isEmailExist = contacts.some(
-      contact => contact.email.toLowerCase() === email.toLowerCase(),
-    );
-
-    if (isEmailExist) {
-      alert(`${email} is already in contacts`);
-      return;
-    }
-
-    const isPasswordExist = contacts.some(
-      contact => contact.password === password,
-    );
-
-    if (isPasswordExist) {
-      alert(`The number ${password} is already in contacts`);
-      return;
-    }
-
-    const newData = { email, password };
+    const formData = {
+      email,
+      password,
+    };
 
     try {
-      await addContact(newData);
-      reset();
+      const response = await loginUserMutation(formData).unwrap();
+      toast.success('User registered successfully:', response);
     } catch (error) {
-      toast.error('Error adding contact:', error);
+      toast.error('Registration failed:', error);
     }
-  };
-
-  const reset = () => {
-    setEmail('');
-    setPassword('');
   };
 
   return (
     <Form onSubmit={handleSubmit}>
       <Item>
         <List>
-          <label htmlFor={emailId}>Email</label>
-          <input
-            type="email"
-            id={emailId}
-            name="email"
-            value={email}
-            onChange={handleChange}
-            title="The e-mail address must contain the following characters: letters, numbers, period, symbols before the @ symbol"
-            required
-          />
+          <label>
+            Email
+            <input
+              type="email"
+              name="email"
+              value={userEmail} //eslint-disable-line
+              title="The e-mail address must contain the following characters: letters, numbers, period, symbols before the @ symbol"
+              placeholder="Enter your email..."
+              required
+            />
+          </label>
         </List>
         <List>
-          <label htmlFor={passwordId}>Password</label>
-          <input
-            type="password"
-            id={passwordId}
-            name="password"
-            value={password}
-            onChange={handleChange}
-            title="Password must be at least 8 characters long and include a combination of letters, numbers, and special characters"
-            required
-          />
+          <label>
+            Password
+            <input
+              type="password"
+              name="password"
+              value={userPassword} //eslint-disable-line
+              title="Password must be at least 8 characters long and include a combination of letters, numbers, and special characters"
+              placeholder="Enter your password..."
+              required
+            />
+          </label>
         </List>
       </Item>
-      <Btn type="submit" disabled={isAddLoading}>
-        Login
-      </Btn>
-      <LinkToRegister to={REGISTER_ROUTE}>Create an account</LinkToRegister>
+      <Btn type="submit">Registration</Btn>
+      <LinkToLogin to={LOGIN_ROUTE}>Already have an account</LinkToLogin>
     </Form>
   );
 }
