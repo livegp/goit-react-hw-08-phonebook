@@ -25,6 +25,7 @@
     "@spiriit/vite-plugin-svg-spritemap": "^1.3.0",
     "@vitejs/plugin-legacy": "^4.1.1",
     "@vitejs/plugin-react-swc": "^3.3.2",
+    "axios": "^1.5.0",
     "formik": "^2.4.3",
     "ky": "^1.0.0",
     "nanoid": "^4.0.2",

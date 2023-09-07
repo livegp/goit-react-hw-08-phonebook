@@ -22,5 +22,6 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "package.json": "vite.config.js, pnpm-lock.yaml, .stylelintrc, .stylelintignore, .eslintrc, .eslintignore, .eslintcache, .prettierrc, .prettierignore, .gitignore, .gitattributes, .swcrc, 6"
-  }
+  },
+  "cSpell.words": ["toastify", "Toastify"]
 }

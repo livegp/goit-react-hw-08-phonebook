@@ -4,9 +4,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { appRoutes, HOME_ROUTE } from '../../constants/routes';
+import SharedLayout from '../SharedLayout/SharedLayout';
 
 const Loader = lazy(() => import('../Loader/Loader'));
-const SharedLayout = lazy(() => import('../SharedLayout/SharedLayout'));
+// const SharedLayout = lazy(() => import('../SharedLayout/SharedLayout'));
 
 function App() {
   return (

@@ -111,7 +111,6 @@
         }
       }
     ],
-    "unicorn/prefer-query-selector": "off",
     "unicorn/prefer-spread": "off"
   }
 }
