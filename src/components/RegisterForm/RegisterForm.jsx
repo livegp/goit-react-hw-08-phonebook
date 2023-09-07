@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { Btn, Form, LinkToLogin, List } from './RegisterForm.styled';
+import { Button, Form, LinkToLogin, List } from './RegisterForm.styled';
 import { LOGIN_ROUTE } from '../../constants/routes';
 import { useRegisterUserMutation } from '../../redux/authSlice';
 
@@ -9,14 +9,13 @@ function RegisterForm() {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-
   const [registerUserMutation] = useRegisterUserMutation();
 
   const handleSubmit = async event => {
     event.preventDefault();
 
     const formData = {
-      userName,
+      name: userName,
       email: userEmail,
       password: userPassword,
     };
@@ -24,26 +23,38 @@ function RegisterForm() {
     try {
       const response = await registerUserMutation(formData).unwrap();
       toast.success('User registered successfully:', response);
+      reset();
     } catch (error) {
       toast.error('Registration failed:', error);
     }
   };
 
-  const handleChange = event => {
-    const { name: inputName, value } = event.target;
+  const reset = () => {
+    setUserName('');
+    setUserEmail('');
+    setUserPassword('');
+  };
 
+  const handleChange = ({ target: { name: inputName, value } }) => {
     switch (inputName) {
-      case 'userName':
+      case 'userName': {
         setUserName(value);
         break;
-      case 'userEmail':
+      }
+
+      case 'userEmail': {
         setUserEmail(value);
         break;
-      case 'userPassword':
+      }
+
+      case 'userPassword': {
         setUserPassword(value);
         break;
-      default:
+      }
+
+      default: {
         break;
+      }
     }
   };
 
@@ -94,7 +105,7 @@ function RegisterForm() {
           </label>
         </List>
       </ul>
-      <Btn type="submit">Registration</Btn>
+      <Button type="submit">Registration</Button>
       <LinkToLogin to={LOGIN_ROUTE}>Already have an account</LinkToLogin>
     </Form>
   );

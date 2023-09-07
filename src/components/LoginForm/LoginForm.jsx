@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { Btn, Form, LinkToRegister, List } from './LoginForm.styled';
+import { Button, Form, LinkToRegister, List } from './LoginForm.styled';
 import { REGISTER_ROUTE } from '../../constants/routes';
 import { useLoginUserMutation } from '../../redux/authSlice';
 
@@ -21,9 +21,15 @@ function LoginForm() {
     try {
       const response = await loginUserMutation(formData).unwrap();
       toast.success('Login successful:', response);
+      reset();
     } catch (error) {
       toast.error('Login failed:', error);
     }
+  };
+
+  const reset = () => {
+    setUserEmail('');
+    setUserPassword('');
   };
 
   const handleChange = ({ target: { name: inputName, value } }) => {
@@ -67,7 +73,7 @@ function LoginForm() {
           </label>
         </List>
       </ul>
-      <Btn type="submit">Login</Btn>
+      <Button type="submit">Login</Button>
       <LinkToRegister to={REGISTER_ROUTE}>
         Already have an account
       </LinkToRegister>

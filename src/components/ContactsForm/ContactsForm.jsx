@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { Btn, Form, List } from './ContactForm.styled';
+import { Button, Form, List } from './ContactsForm.styled';
 import {
   useAddContactMutation,
   useGetContactsQuery,
 } from '../../redux/contactsSlice';
 
-function ContactForm() {
+function ContactsForm() {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
 
   const [addContact, { isLoading: isAddLoading }] = useAddContactMutation();
   const { data: contacts } = useGetContactsQuery();
@@ -17,13 +17,13 @@ function ContactForm() {
   const handleChange = ({ target: { name: inputName, value } }) => {
     if (inputName === 'name') {
       setName(value);
-    } else if (inputName === 'phone') {
-      setPhone(value);
+    } else if (inputName === 'number') {
+      setNumber(value);
     }
   };
 
-  const handleSubmit = async evt => {
-    evt.preventDefault();
+  const handleSubmit = async event_ => {
+    event_.preventDefault();
 
     const isNameExist = contacts.some(
       contact => contact.name.toLowerCase() === name.toLowerCase(),
@@ -34,14 +34,14 @@ function ContactForm() {
       return;
     }
 
-    const isPhoneExist = contacts.some(contact => contact.phone === phone);
+    const isNumberExist = contacts.some(contact => contact.number === number);
 
-    if (isPhoneExist) {
-      alert(`The number ${phone} is already in contacts`);
+    if (isNumberExist) {
+      alert(`The number ${number} is already in contacts`);
       return;
     }
 
-    const newData = { name, phone };
+    const newData = { name, number };
 
     try {
       await addContact(newData);
@@ -53,7 +53,7 @@ function ContactForm() {
 
   const reset = () => {
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   return (
@@ -75,24 +75,24 @@ function ContactForm() {
         </List>
         <List>
           <label>
-            Phone
+            Number
             <input
               type="tel"
-              name="phone"
-              value={phone}
+              name="number"
+              value={number}
               onChange={handleChange}
               pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              title="number number must be digits and can contain spaces, dashes, parentheses and can start with +"
               required
             />
           </label>
         </List>
       </ul>
-      <Btn type="submit" disabled={isAddLoading}>
+      <Button type="submit" disabled={isAddLoading}>
         {isAddLoading ? 'Adding...' : 'Add contact'}
-      </Btn>
+      </Button>
     </Form>
   );
 }
 
-export default ContactForm;
+export default ContactsForm;

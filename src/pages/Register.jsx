@@ -1,7 +1,7 @@
 import RegistrationForm from '../components/RegisterForm/RegisterForm';
 
-function Login() {
+function Register() {
   return <RegistrationForm />;
 }
 
-export default Login;
+export default Register;

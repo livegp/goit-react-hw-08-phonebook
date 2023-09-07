@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const LogoutBtn = styled.button`
+const LogoutButton = styled.button`
   order: 5;
   margin-top: 0;
   background: transparent;
@@ -25,4 +25,4 @@ const LogoutBtn = styled.button`
   }
 `;
 
-export default LogoutBtn;
+export default LogoutButton;

@@ -14,6 +14,9 @@
     "import",
     "unused-imports",
     "styled-components-a11y",
+    "promise",
+    "sonarjs",
+    "unicorn",
     "prettier"
   ],
   "extends": [
@@ -23,6 +26,9 @@
     "plugin:jsx-a11y/recommended",
     "plugin:styled-components-a11y/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:promise/recommended",
+    "plugin:sonarjs/recommended",
+    "plugin:unicorn/recommended",
     "prettier",
     "react-app"
   ],
@@ -91,9 +97,21 @@
     "no-alert": "off",
     "prettier/prettier": 2,
     "import/no-unresolved": 2,
+    "import/no-cycle": "off",
     "react-refresh/only-export-components": [
       "warn",
       { "allowConstantExport": true }
-    ]
+    ],
+    "unicorn/filename-case": [
+      "error",
+      {
+        "cases": {
+          "camelCase": true,
+          "pascalCase": true
+        }
+      }
+    ],
+    "unicorn/prefer-query-selector": "off",
+    "unicorn/prefer-spread": "off"
   }
 }

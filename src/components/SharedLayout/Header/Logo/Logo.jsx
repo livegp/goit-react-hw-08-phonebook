@@ -2,12 +2,12 @@ import { RiContactsBookLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
 import LogoStyled from './Logo.styled';
-import { HOME_ROUTE } from '../../../../constants/routes';
+import { CONTACTS_ROUTE } from '../../../../constants/routes';
 
 function Logo() {
   return (
     <LogoStyled>
-      <Link to={HOME_ROUTE}>
+      <Link to={CONTACTS_ROUTE}>
         <RiContactsBookLine />
         <p>Contacts book</p>
       </Link>

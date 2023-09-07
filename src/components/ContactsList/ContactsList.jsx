@@ -2,7 +2,7 @@ import { TiDeleteOutline, TiEdit } from 'react-icons/ti';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { Head, Table } from './ContactList.styled';
+import { Head, Table } from './ContactsList.styled';
 import {
   useDeleteContactMutation,
   useGetContactsQuery,
@@ -10,7 +10,7 @@ import {
 import { selectFilter } from '../../redux/filterSlice';
 import Loader from '../Loader/Loader';
 
-function ContactList() {
+function ContactsList() {
   const filter = useSelector(selectFilter);
 
   const {
@@ -43,7 +43,7 @@ function ContactList() {
     contact.name.toLowerCase().includes(filter.toLowerCase()),
   );
 
-  if (!visibleContactList.length) {
+  if (visibleContactList.length === 0) {
     return <p>No contacts</p>;
   }
 
@@ -86,4 +86,4 @@ function ContactList() {
   );
 }
 
-export default ContactList;
+export default ContactsList;

@@ -21,7 +21,7 @@ export const List = styled.li`
   }
 `;
 
-export const Btn = styled.button`
+export const Button = styled.button`
   background-color: #dfe3ee;
   color: #3b5998;
   border: none;

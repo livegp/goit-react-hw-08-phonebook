@@ -1,12 +1,12 @@
 import { IoLogOutOutline } from 'react-icons/io5';
 
-import LogoutBtn from './Logout.styled';
+import LogoutButton from './Logout.styled';
 
 function Logout() {
   return (
-    <LogoutBtn type="button">
+    <LogoutButton type="button">
       <IoLogOutOutline />
-    </LogoutBtn>
+    </LogoutButton>
   );
 }
 
