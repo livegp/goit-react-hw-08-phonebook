@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 
 import { Button, Form, LinkToRegister, List } from './LoginForm.styled';
 import { REGISTER_ROUTE } from '../../constants/routes';
-import { useLoginUserMutation } from '../../redux/authSlice';
+import { loginUser } from '../../redux/authReducer';
 
 function LoginForm() {
+  const dispatch = useDispatch();
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [loginUserMutation] = useLoginUserMutation();
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -18,13 +18,8 @@ function LoginForm() {
       password: userPassword,
     };
 
-    try {
-      const response = await loginUserMutation(formData).unwrap();
-      toast.success('Login successful:', response);
-      reset();
-    } catch (error) {
-      toast.error('Login failed:', error);
-    }
+    dispatch(loginUser(formData));
+    reset();
   };
 
   const reset = () => {

@@ -1,51 +1,29 @@
+import { useEffect } from 'react';
 import { TiDeleteOutline, TiEdit } from 'react-icons/ti';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Head, Table } from './ContactsList.styled';
 import {
-  useDeleteContactMutation,
-  useGetContactsQuery,
-} from '../../redux/contactsSlice';
-import { selectFilter } from '../../redux/filterSlice';
-import Loader from '../Loader/Loader';
+  deleteContact,
+  requestContacts,
+  selectContacts,
+  selectContactsError,
+  selectContactsIsLoading,
+} from '../../redux/contactsReducer';
 
 function ContactsList() {
-  const filter = useSelector(selectFilter);
+  const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectContactsIsLoading);
+  const error = useSelector(selectContactsError);
 
-  const {
-    data: contacts,
-    error: isGetError,
-    isLoading: isGetLoading,
-  } = useGetContactsQuery();
+  useEffect(() => {
+    dispatch(requestContacts());
+  }, [dispatch]);
 
-  const [deleteContact, { isLoading: isDeleteLoading }] =
-    useDeleteContactMutation();
-
-  const handleDelete = async id => {
-    try {
-      await deleteContact(id);
-      toast.success('Contact deleted successfully');
-    } catch (error) {
-      toast.error('Error deleting contact:', error);
-    }
+  const handleDelete = contacId => {
+    dispatch(deleteContact(contacId));
   };
-
-  if (isGetLoading) {
-    return <Loader />;
-  }
-
-  if (isGetError) {
-    return toast.error('Error deleting contact:', isGetError);
-  }
-
-  const visibleContactList = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase()),
-  );
-
-  if (visibleContactList.length === 0) {
-    return <p>No contacts</p>;
-  }
 
   return (
     <Table>
@@ -62,7 +40,7 @@ function ContactsList() {
         </tr>
       </Head>
       <tbody>
-        {visibleContactList.map(({ id, name, phone }) => (
+        {contacts.map(({ id, name, phone }) => (
           <tr key={id}>
             <td>{name}</td>
             <td>{phone}</td>
@@ -72,10 +50,7 @@ function ContactsList() {
               </button>
             </td>
             <td>
-              <button
-                type="button"
-                disabled={isDeleteLoading}
-                onClick={() => handleDelete(id)}>
+              <button type="button" onClick={() => handleDelete(id)}>
                 <TiDeleteOutline size={20} />
               </button>
             </td>

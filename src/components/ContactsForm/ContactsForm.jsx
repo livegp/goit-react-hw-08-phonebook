@@ -1,18 +1,15 @@
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Form, List } from './ContactsForm.styled';
-import {
-  useAddContactMutation,
-  useGetContactsQuery,
-} from '../../redux/contactsSlice';
+import { addContact, selectContacts } from '../../redux/contactsReducer';
 
 function ContactsForm() {
+  const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
-  const [addContact, { isLoading: isAddLoading }] = useAddContactMutation();
-  const { data: contacts } = useGetContactsQuery();
 
   const handleChange = ({ target: { name: inputName, value } }) => {
     if (inputName === 'name') {
@@ -41,14 +38,14 @@ function ContactsForm() {
       return;
     }
 
-    const newData = { name, number };
+    const formData = {
+      name,
+      number,
+    };
 
-    try {
-      await addContact(newData);
-      reset();
-    } catch (error) {
-      toast.error('Error adding contact:', error);
-    }
+    dispatch(addContact(formData));
+
+    reset();
   };
 
   const reset = () => {
@@ -88,9 +85,7 @@ function ContactsForm() {
           </label>
         </List>
       </ul>
-      <Button type="submit" disabled={isAddLoading}>
-        {isAddLoading ? 'Adding...' : 'Add contact'}
-      </Button>
+      <Button type="submit">Add contact</Button>
     </Form>
   );
 }
