@@ -30,7 +30,7 @@ function ContactsList() {
       <Head>
         <tr>
           <th>Name</th>
-          <th>Phone</th>
+          <th>Number</th>
           <th>
             <TiEdit size={20} />
           </th>
@@ -40,10 +40,10 @@ function ContactsList() {
         </tr>
       </Head>
       <tbody>
-        {contacts.map(({ id, name, phone }) => (
+        {contacts.map(({ id, name, number }) => (
           <tr key={id}>
             <td>{name}</td>
-            <td>{phone}</td>
+            <td>{number}</td>
             <td>
               <button type="button">
                 <TiEdit size={20} />

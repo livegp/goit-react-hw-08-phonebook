@@ -69,9 +69,7 @@ function LoginForm() {
         </List>
       </ul>
       <Button type="submit">Login</Button>
-      <LinkToRegister to={REGISTER_ROUTE}>
-        Already have an account
-      </LinkToRegister>
+      <LinkToRegister to={REGISTER_ROUTE}>Create an account</LinkToRegister>
     </Form>
   );
 }

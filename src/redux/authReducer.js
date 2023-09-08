@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -7,9 +6,8 @@ export const instance = axios.create({
 });
 
 export const token = {
-  // eslint-disable-next-line no-shadow
-  set: token => {
-    instance.defaults.headers.Authorization = token;
+  set: newToken => {
+    instance.defaults.headers.Authorization = newToken;
   },
   clear: () => {
     instance.defaults.headers.Authorization = '';
@@ -46,11 +44,11 @@ export const loginUser = createAsyncThunk(
 
 export const logOutUser = createAsyncThunk(
   'auth/logOutUser',
-  // eslint-disable-next-line consistent-return
   async thunkApi => {
     try {
       await instance.post(`users/logout`);
       token.clear();
+      return { status: 'success' };
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
@@ -73,13 +71,11 @@ export const refreshUser = createAsyncThunk(
     }
   },
   {
-    // eslint-disable-next-line consistent-return
     condition: (_, { getState }) => {
       const state = getState();
-      // eslint-disable-next-line no-shadow
-      const { token } = state.auth;
+      const { token: authToken } = state.auth;
 
-      if (!token) return false;
+      return !!authToken;
     },
   },
 );
@@ -97,51 +93,45 @@ const authSlice = createSlice({
   initialState,
   extraReducers: builder =>
     builder
-      // --------------- REGISTER -----------------
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.authenticated = true;
-        state.userData = action.payload.user;
-        state.token = action.payload.token;
-      })
-      // --------------- LOGIN -----------------
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.authenticated = true;
-        state.userData = action.payload.user;
-        state.token = action.payload.token;
-      })
-      // --------------- LOG OUT -----------------
-      .addCase(logOutUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.authenticated = false;
-        state.userData = undefined;
-        state.token = undefined;
-      })
-      // --------------- REFRESH USER -----------------
-      .addCase(refreshUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.authenticated = true;
-        state.userData = action.payload;
-      })
+      .addCase(registerUser.fulfilled, (state, action) => ({
+        ...state,
+        isLoading: false,
+        authenticated: true,
+        userData: action.payload.user,
+        token: action.payload.token,
+      }))
+      .addCase(loginUser.fulfilled, (state, action) => ({
+        ...state,
+        isLoading: false,
+        authenticated: true,
+        userData: action.payload.user,
+        token: action.payload.token,
+      }))
+      .addCase(logOutUser.fulfilled, () => initialState)
+      .addCase(refreshUser.fulfilled, (state, action) => ({
+        ...state,
+        isLoading: false,
+        authenticated: true,
+        userData: action.payload,
+      }))
 
       .addMatcher(
         action => action.type.endsWith('/pending'),
-        state => {
-          state.isLoading = true;
-          state.error = undefined;
-        },
+        state => ({
+          ...state,
+          isLoading: true,
+          error: undefined,
+        }),
       )
       .addMatcher(
         action => action.type.endsWith('/rejected'),
-        (state, action) => {
-          state.isLoading = false;
-          state.error = action.payload;
-        },
+        (state, action) => ({
+          ...state,
+          isLoading: false,
+          error: action.payload,
+        }),
       ),
 });
-
-// Селектори
 
 export const selectUserAuthentication = state => state.auth.authenticated;
 export const selectUserData = state => state.auth.userData;
@@ -149,5 +139,4 @@ export const selectUserIsLoading = state => state.auth.isLoading;
 export const selectUserError = state => state.auth.error;
 export const selectUserToken = state => state.auth.token;
 
-// Редюсер слайсу
 export const authReducer = authSlice.reducer;

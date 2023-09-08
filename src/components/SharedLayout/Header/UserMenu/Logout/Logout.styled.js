@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const LogoutButton = styled.button`
-  order: 5;
+  order: 6;
   margin-top: 0;
   background: transparent;
   border-width: 0;

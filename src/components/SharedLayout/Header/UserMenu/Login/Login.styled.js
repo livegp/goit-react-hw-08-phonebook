@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LoginLink = styled(Link)`
-  order: 5;
+  order: 6;
   margin-top: 0;
   background: transparent;
   border-width: 0;

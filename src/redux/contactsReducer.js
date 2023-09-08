@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { instance } from './authReducer';
@@ -53,36 +52,41 @@ const contactsSlice = createSlice({
   initialState,
   extraReducers: builder =>
     builder
-      .addCase(requestContacts.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.contacts = action.payload;
-      })
-      // ------------ ADD CONTACT -------------
-      .addCase(addContact.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.contacts.push(action.payload);
-      })
+      .addCase(requestContacts.fulfilled, (state, action) => ({
+        ...state,
+        isLoading: false,
+        contacts: action.payload,
+      }))
+
+      .addCase(addContact.fulfilled, (state, action) => ({
+        ...state,
+        isLoading: false,
+        contacts: [...state.contacts, action.payload],
+      }))
       // ------------ DELETE CONTACT -------------
-      .addCase(deleteContact.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.contacts = state.contacts.filter(
+      .addCase(deleteContact.fulfilled, (state, action) => ({
+        ...state,
+        isLoading: false,
+        contacts: state.contacts.filter(
           contact => contact.id !== action.payload.id,
-        );
-      })
+        ),
+      }))
 
       .addMatcher(
         action => action.type.endsWith('/pending'),
-        state => {
-          state.isLoading = true;
-          state.error = undefined;
-        },
+        state => ({
+          ...state,
+          isLoading: true,
+          error: undefined,
+        }),
       )
       .addMatcher(
         action => action.type.endsWith('/rejected'),
-        (state, action) => {
-          state.isLoading = false;
-          state.error = action.payload;
-        },
+        (state, action) => ({
+          ...state,
+          isLoading: false,
+          error: action.payload,
+        }),
       ),
 });
 
