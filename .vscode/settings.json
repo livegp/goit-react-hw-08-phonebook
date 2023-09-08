@@ -23,5 +23,5 @@
   "explorer.fileNesting.patterns": {
     "package.json": "vite.config.js, pnpm-lock.yaml, .stylelintrc, .stylelintignore, .eslintrc, .eslintignore, .eslintcache, .prettierrc, .prettierignore, .gitignore, .gitattributes, .swcrc, 6"
   },
-  "cSpell.words": ["phonebook", "reduxjs", "toastify", "Toastify"]
+  "cSpell.words": ["contac", "phonebook", "reduxjs", "toastify", "Toastify"]
 }

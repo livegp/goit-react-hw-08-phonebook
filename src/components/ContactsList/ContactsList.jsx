@@ -10,8 +10,10 @@ import {
   selectContactsError,
   selectContactsIsLoading,
 } from '../../redux/contactsReducer';
+import { selectFilter } from '../../redux/filterSlice';
 
 function ContactsList() {
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectContactsIsLoading);
@@ -20,6 +22,14 @@ function ContactsList() {
   useEffect(() => {
     dispatch(requestContacts());
   }, [dispatch]);
+
+  const visibleContactList = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase()),
+  );
+
+  if (visibleContactList.length === 0) {
+    return <p>No contacts</p>;
+  }
 
   const handleDelete = contacId => {
     dispatch(deleteContact(contacId));
@@ -40,7 +50,7 @@ function ContactsList() {
         </tr>
       </Head>
       <tbody>
-        {contacts.map(({ id, name, number }) => (
+        {visibleContactList.map(({ id, name, number }) => (
           <tr key={id}>
             <td>{name}</td>
             <td>{number}</td>
