@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Form from './ContactsFilter.styled';
 import { selectFilter, setFilter } from '../../redux/filterSlice';
 
-export default function ContactsFilter() {
+function ContactsFilter() {
   const dispatch = useDispatch();
   const filter = useSelector(selectFilter);
 
@@ -23,3 +23,5 @@ export default function ContactsFilter() {
     </Form>
   );
 }
+
+export default ContactsFilter;
